@@ -1,16 +1,18 @@
-const SessionSchema = new Schema({
+const mongoose = require('mongoose');
+
+const SessionSchema = new mongoose.Schema({
     courseId: { 
-      type: Schema.Types.ObjectId, 
+      type: mongoose.Schema.Types.ObjectId, 
       ref: 'Course', 
       required: true 
     },
     tutorId: { 
-      type: Schema.Types.ObjectId, 
+      type: mongoose.Schema.Types.ObjectId, 
       ref: 'User', 
       required: true 
     },
     studentId: { 
-      type: Schema.Types.ObjectId, 
+      type: mongoose.Schema.Types.ObjectId, 
       ref: 'User', 
       required: true 
     },
@@ -34,7 +36,6 @@ const SessionSchema = new Schema({
       type: Date, 
       default: Date.now 
     }
-  });
-  
-  module.exports = mongoose.model('Session', SessionSchema);
-  
+});
+
+module.exports = mongoose.model('Session', SessionSchema);

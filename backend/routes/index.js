@@ -1,2 +1,4 @@
 const sessionRoute = require('./session');
-module.exports = {sessionRoute};
+const loginRoute = require("./loginRoute")
+const registerRoute = require("./registerRoute")
+module.exports = {sessionRoute, loginRoute, registerRoute};

@@ -4,7 +4,7 @@ const bookSession = require("../controllers/sessionController");
 const { sessionController } = require("../controllers");
 const router = express.Router();
 
-router.post("/session", sessionController.bookSession);
+router.post("/", sessionController.bookSession);
 router.get("/session/:id", sessionController.getSession);
 router.post("/session/:id/cancel", sessionController.cancelSession);
 

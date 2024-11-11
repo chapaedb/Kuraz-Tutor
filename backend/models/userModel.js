@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
+    name:{
+        type: String,
+        required: true
+    },
     email: {
         type: String,
         required: true,
@@ -17,15 +21,14 @@ const userSchema = new mongoose.Schema({
     },
     profile: {
         fullName: {
-            type: String,
-            required: true
+            type: String
         },
         profilePicture: String,
         bio: String,
         // Student
         learningPreferences: {
             type: [String],
-            required: function() { return this.role === "Student"; }
+            function() { return this.role === "Student"; }
         },
         previousSessions: [{
             tutorId: mongoose.Schema.Types.ObjectId,

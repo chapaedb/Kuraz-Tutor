@@ -5,11 +5,9 @@ const app = express()
 require("dotenv").config()
 app.use(express.json())
 
-app.use('/' , (req, res) => {
-    res.send("Welcome to Kuraz Tutor")
-});
+
 app.use("api/v1/session", sessionRoute);
-app.use("api/v1/auth", Authroute);
+app.use("/api/v1/auth", Authroute);
 app.use("api/v1/profile", profileRoute);
 app.use("api/v1/courses", coursesRoute);
 app.use("api/v1/admin", adminRoute);

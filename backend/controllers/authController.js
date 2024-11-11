@@ -23,20 +23,12 @@ const registerUser =async(req, res)=>{
         await user.save();
 
         const token = createToken(user._id);
-        res.status(200).json({_id: user._id, email, role, name, token});
+        res.status(200).json({_id: user._id, email, token});
     }
     catch(error){
         console.log(error)
         res.status(500).json(error)
     }
-};
-
-const loginUser = (req, res)=>{
-
-}
-
-const logoutUser = (req, res)=>{
-
 }
 
 module.exports = {registerUser,loginUser, logoutUser}

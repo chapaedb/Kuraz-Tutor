@@ -1,7 +1,8 @@
+const createToken = require("../utils/createToken")
 const userModel = require("../models/userModel")
 const bcrypt = require("bcrypt")
 const validator = require("validator")
-const createToken = require("../utils/createToken")
+
 
 
 const registerUser =async(req, res)=>{
@@ -29,6 +30,36 @@ const registerUser =async(req, res)=>{
         console.log(error)
         res.status(500).json(error)
     }
-}
+};
+const loginUser= async(req, res)=>{
+    const {name, email, passwordHash} = req.body
+    try{
+        let user = await userModel.findOne({email});
 
-module.exports = {registerUser,loginUser, logoutUser}
+        if(!user) return res.status(400).json("Invalid email or password");
+
+        const isValidPassword = await bcrypt.compare(passwordHash, user.password);
+
+        if(!isValidPassword) return res.status(400).json("Invalid email or password");
+
+        const token = createToken(user._id);
+        res.status(200).json({_id: user._id, name: user.name, email, token});
+
+    }catch(error){
+        console.log(error)
+        res.status(500).json(error)
+    }
+};
+const logoutUser = async(req, res)=>{
+    try{
+        // Clear the token or session information
+        req.session = null;
+        res.status(200).json("User logged out successfully")
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).json(error)
+    }
+};
+
+module.exports = {registerUser, loginUser, logoutUser}

@@ -6,4 +6,4 @@ const createToken = (_id)=>{
     return jwt.sign({_id}, jwtkey, {expiresIn: "3d"});
 }
 
-module.exports = {createToken};
+module.exports = createToken;

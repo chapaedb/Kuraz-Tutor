@@ -4,9 +4,11 @@ const {sessionRoute,Authroute, profileRoute, coursesRoute,messageRoute,paymentRo
 const app = express()
 require("dotenv").config()
 app.use(express.json())
+const cors = require('cors');
+app.use(cors());
 
 
-app.use("api/v1/session", sessionRoute);
+app.use("/api/v1/session", sessionRoute);
 app.use("/api/v1/auth", Authroute);
 app.use("api/v1/profile", profileRoute);
 app.use("api/v1/courses", coursesRoute);

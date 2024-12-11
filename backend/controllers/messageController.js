@@ -1,21 +1,45 @@
-// messageController.js
+const messageModel = require("../models/Messages");
 
-// Create a new message
-const createMessage = (req, res) => {
-    // Logic to create a new message
-    res.send('Message created');
+const createMessage = async(req, res) => {
+    const {sessionId, senderId, receiverId, content} = req.body;
+
+    const message = new messageModel({
+        sessionId,
+        senderId,
+        receiverId,
+        content
+
+    })
+    try{
+        const response = await message.save();
+        res.status(200).json({message: 'message created', response});
+
+    }catch(error){
+        res.status(500).json({message: 'Error creating message', error});
+    }
 };
 
-// Get all messages
-const getAllMessages = (req, res) => {
-    // Logic to get all messages
-    res.send('All messages');
+const getAllMessages = async(req, res) => {
+    const {sessionId} = req.params;
+    try{
+        const messages = await messageModel.find({sessionId});
+        res.status(200).json(messages);
+    }catch(error){
+        res.status(500).json({message: 'Error fetching data', error});
+    }
 };
 
-// Get a single message by ID
-const getMessageById = (req, res) => {
-    // Logic to get a message by ID
-    res.send(`Message with ID: ${req.params.id}`);
+const getMessageById = async(req, res) => {
+    const {id} = req.params;
+    try{
+        const message = await messageModel.findById(id);
+        if(!message){
+            return res.status(404).json({message: 'message is not found'})
+        }
+        res.status(200).json(message)
+    }catch(error){
+        res.status(500).json(error);
+    }
 };
 
 
